@@ -17,7 +17,7 @@ public class BaseClass {
         pj = new PageObject(wd); // pass driver to page object
     }
 
-   // @AfterClass
+    @AfterClass
     public void tearDown() {
         wd.quit();
     }

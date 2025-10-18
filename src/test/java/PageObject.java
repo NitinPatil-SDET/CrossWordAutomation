@@ -1,5 +1,6 @@
 import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.interactions.MoveTargetOutOfBoundsException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -166,14 +167,14 @@ public class PageObject {
 
                 // Move left handle to right (to set ₹600)
                 actions.clickAndHold(leftHandle)
-                        .moveByOffset(150, 0)
+                        .moveByOffset(47, 0)
                         .release()
                         .perform();
                 Thread.sleep(1500);
 
                 // Move right handle to left (to set ₹900)
                 actions.clickAndHold(rightHandle)
-                        .moveByOffset(-110, 0)
+                        .moveByOffset(-45, 0)
                         .release()
                         .perform();
                 Thread.sleep(1500);
@@ -194,12 +195,29 @@ public class PageObject {
         }
     }
 
+    public void getSliderLocation() throws InterruptedException {
+        WebElement minSlider = wd.findElement(By.xpath("//div[@class=\"noUi-handle noUi-handle-lower\"]"));
+        WebElement maxSlider = wd.findElement(By.xpath("//div[@class=\"noUi-handle noUi-handle-upper\"]"));
+
+       // System.out.println("Initial location  -->>"+minSlider.getLocation());  //(144, 935)
+        System.out.println("Initial location  -->>"+maxSlider.getLocation());  // (272, 935)
+        Actions act = new Actions(wd);
+
+       // act.dragAndDropBy(minSlider, 47, 0).perform();
+        act.dragAndDropBy(maxSlider, -45, 0).perform();
+        Thread.sleep(3000);
+        //System.out.println("AfterMoving Position -->>"+minSlider.getLocation());
+        System.out.println("AfterMoving Position -->>"+maxSlider.getLocation());
+
+    }
+
+
 
 
 
 }
 
-//div[@class="noUi-handle noUi-handle-lower"]
+
 //div[@class="noUi-handle noUi-handle-upper"]
 
 
