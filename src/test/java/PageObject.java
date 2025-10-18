@@ -195,6 +195,41 @@ public class PageObject {
         }
     }
 
+    public void handlePriceSlider2() throws InterruptedException {
+        WebDriverWait wait = new WebDriverWait(wd, Duration.ofSeconds(10));
+        Actions actions = new Actions(wd);
+
+        By leftHandleLocator = By.xpath("//div[contains(@class,'noUi-handle-lower')]");
+        By rightHandleLocator = By.xpath("//div[contains(@class,'noUi-handle-upper')]");
+
+        // Wait until both slider handles are visible and clickable
+        WebElement leftHandle = wait.until(ExpectedConditions.elementToBeClickable(leftHandleLocator));
+        WebElement rightHandle = wait.until(ExpectedConditions.elementToBeClickable(rightHandleLocator));
+
+        // Scroll into view (prevents MoveTargetOutOfBounds)
+        ((JavascriptExecutor) wd).executeScript("arguments[0].scrollIntoView(true);", leftHandle);
+        ((JavascriptExecutor) wd).executeScript("arguments[0].scrollIntoView(true);", rightHandle);
+
+        System.out.println("🎯 Adjusting price slider...");
+
+        // Move left handle to right (e.g., to set ₹600)
+        actions.clickAndHold(leftHandle)
+                .moveByOffset(47, 0)
+                .release()
+                .perform();
+        Thread.sleep(1500);
+
+        // Move right handle to left (e.g., to set ₹900)
+        actions.clickAndHold(rightHandle)
+                .moveByOffset(-45, 0)
+                .release()
+                .perform();
+        Thread.sleep(1500);
+
+        System.out.println("✅ Price slider adjusted successfully (600 - 900 range)");
+    }
+
+
     public void getSliderLocation() throws InterruptedException {
         WebElement minSlider = wd.findElement(By.xpath("//div[@class=\"noUi-handle noUi-handle-lower\"]"));
         WebElement maxSlider = wd.findElement(By.xpath("//div[@class=\"noUi-handle noUi-handle-upper\"]"));

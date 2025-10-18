@@ -19,6 +19,7 @@ public class CrosswordTests  extends BaseClass {
 
         // Fetch the original (non-discounted) prices
         List<Double> originalPrices = pj.fetchOriginalPrices();
+        System.out.println("-----------------TC01_VerifyBooksAreSortedByPriceAscending------------------------");
         System.out.println("Original Prices: " + originalPrices);
 
         // Verify prices are in ascending order
@@ -38,6 +39,7 @@ public class CrosswordTests  extends BaseClass {
     @Test(priority = 2, dependsOnMethods = {"TC01_VerifyBooksAreSortedByPriceAscending"} , alwaysRun = true)
     public void TC02_VerifyBooksWithDiscountedPricesAreDisplayed() {
         List<String> discountedBooks = pj.getDiscountedBookNames();
+        System.out.println("-----------------TC02_VerifyBooksWithDiscountedPricesAreDisplayed------------------------");
         System.out.println("Books with Discounted Prices: " + discountedBooks);
 
         Assert.assertTrue(!discountedBooks.isEmpty(),
@@ -47,8 +49,9 @@ public class CrosswordTests  extends BaseClass {
 
   @Test(priority = 3, dependsOnMethods = {"TC02_VerifyBooksWithDiscountedPricesAreDisplayed"}, alwaysRun = true)
     public void TC03_VerifyPriceFilterAppliedCorrectly() throws InterruptedException {
+      System.out.println("-----------------TC03_VerifyPriceFilterAppliedCorrectly------------------------");
             pj.clickonsortByprice2();
-            pj.handlePriceSlider();
+            pj.handlePriceSlider2();
     }
 
 
